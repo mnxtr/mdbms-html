@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard-styles.css"> <!-- New styles for improved UI -->
+    <link rel="stylesheet" href="navbar-styles.css"> <!-- Reuse the navbar styles -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js CDN -->
+</head>
+<body>
+    <!-- Sidebar Section -->
+    <aside class="sidebar">
+        <div class="logo">MyBrand</div>
+        <ul class="sidebar-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a class="active" href="dashboard.html">Dashboard</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-main">
+        <div class="header">
+            <h1>Dashboard Overview</h1>
+        </div>
+
+        <div class="charts-grid">
+            <!-- Chart 1: Bar Chart -->
+            <div class="chart-card">
+                <h2>Sales Overview</h2>
+                <canvas id="barChart"></canvas>
+            </div>
+            <!-- Chart 2: Pie Chart -->
+            <div class="chart-card">
+                <h2>Market Share</h2>
+                <canvas id="pieChart"></canvas>
+            </div>
+            <!-- Chart 3: Line Chart -->
+            <div class="chart-card">
+                <h2>Revenue Trends</h2>
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Dashboard Script -->
+    <script src="dashboard.js"></script> <!-- JavaScript to generate charts -->
+</body>
+</html>
