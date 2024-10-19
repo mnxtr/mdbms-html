@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="navbar-styles.css"> <!-- Sidebar styles -->
+    <link rel="stylesheet" href="orders-styles.css"> <!-- Custom styles for orders page -->
+</head>
+<body>
+    <!-- Sidebar Section -->
+    <aside class="sidebar">
+        <div class="logo">MyBrand</div>
+        <ul class="sidebar-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a class="active" href="orders.html">Orders</a></li> <!-- Active link for orders -->
+        </ul>
+    </aside>
+
+    <!-- Main Content Section -->
+    <main class="orders-main">
+        <h1>Order Management</h1>
+
+        <!-- Add Order Form -->
+        <div class="order-form">
+            <h2>Add New Order</h2>
+            <form id="orderForm">
+                <input type="text" id="customerName" placeholder="Customer Name" required>
+                <input type="text" id="product" placeholder="Product" required>
+                <input type="number" id="quantity" placeholder="Quantity" required>
+                <input type="text" id="status" placeholder="Status" required>
+                <button type="submit">Add Order</button>
+            </form>
+        </div>
+
+        <!-- Orders Table -->
+        <h2>Current Orders</h2>
+        <table id="ordersTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic order rows will be added here -->
+            </tbody>
+        </table>
+    </main>
+
+    <script src="orders.js"></script> <!-- JavaScript for handling orders -->
+</body>
+</html>

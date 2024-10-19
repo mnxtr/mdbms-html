@@ -1,0 +1,92 @@
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fc;
+    display: flex;
+}
+
+.orders-main {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left: 250px; /* Shift content to the right for fixed sidebar */
+}
+
+h1 {
+    font-size: 26px;
+    color: #333;
+    margin: 0 0 20px 0;
+}
+
+h2 {
+    font-size: 20px;
+    color: #444;
+    margin: 20px 0 10px 0;
+}
+
+/* Order Form Styles */
+.order-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.order-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.order-form button {
+    padding: 10px 15px;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.order-form button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Orders Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Highlight row on hover */
+}
+
+button.delete {
+    background-color: #ff6b6b; /* Red color for delete button */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.delete:hover {
+    background-color: #ff3d3d; /* Darker red on hover */
+}
