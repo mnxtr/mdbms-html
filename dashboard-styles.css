@@ -96,3 +96,16 @@ canvas {
     width: 100%;
     height: 300px;
 }
+body.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+.sidebar.dark-mode {
+    background-color: #444;
+}
+
+.chart-card.dark-mode {
+    background-color: #555;
+    border-color: #666;
+}
