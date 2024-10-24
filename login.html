@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Manufacturing Database</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navbar-styles.css">
+    
+    <script src="auth.js" defer></script>   <!-- Script for login form functionality -->
+</head>
+<body>
+
+    <!-- Main Content Section -->
+    <main class="login-container">
+        <header>
+            <h1>Login to Manufacturing Database</h1>
+        </header>
+
+        <!-- Authentication Form Section -->
+        <section aria-labelledby="login-section">
+            <h2 id="login-section">Login</h2>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required
+                    aria-required="true" title="Enter your username" pattern=".{3,}" aria-describedby="username-help">
+                <small id="username-help" class="visually-hidden">Username must be at least 3 characters long</small>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required
+                    aria-required="true" title="Enter your password" minlength="6" aria-describedby="password-help">
+                <small id="password-help" class="visually-hidden">Password must be at least 6 characters long</small>
+
+                <button type="submit" aria-label="Submit login form">Login</button>
+            </form>
+            <div id="login-notification" class="hidden" aria-live="polite"></div>
+        </section>
+    </main>
+
+</body>
+</html>
