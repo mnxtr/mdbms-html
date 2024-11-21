@@ -78,5 +78,8 @@ function showNotification(message, isSuccess) {
     notification.innerText = message;
     notification.style.display = "block";
     setTimeout(() => { notification.style.display = "none"; }, 3000);
-}
+} 
+
+
+
 
