@@ -1,615 +1,241 @@
-Manufacturing Intelligence OS
+# Manufacturing Intelligence OS MVP
 
 > Turning factory data into decisions.
 
-
-
-An AI-native manufacturing database and intelligence platform designed to help factories centralize operational data and interact with it using natural language.
-
-Overview
-
-Manufacturing information is often scattered across spreadsheets, databases, maintenance logs, inventory systems, machine manuals, SOPs, and quality reports.
-
-Manufacturing Intelligence OS brings these sources together and adds an AI-powered interface on top.
-
-Instead of manually searching through multiple systems, a factory manager can ask:
-
-> “Why did production on Line 3 decrease last week?”
-
-
-
-The system retrieves relevant production, downtime, maintenance, inventory, and quality information, then generates an evidence-backed response.
-
-
----
-
-What It Does
-
-🏭 Manufacturing Database
-
-Centralizes core factory information:
-
-Production
-
-Machines
-
-Maintenance
-
-Inventory
-
-Quality
-
-Suppliers
-
-Production orders
-
-Employees
-
-Factory documents
-
-
-🤖 AI Factory Assistant
-
-Users can ask questions in plain language:
-
-Which machine had the highest downtime this month?
-
-Why did production decrease yesterday?
-
-What maintenance procedure applies to Machine M102?
-
-Which products have the highest rejection rate?
-
-Are we running low on any critical materials?
-
-📚 RAG Knowledge Base
-
-The system can retrieve information from:
-
-Machine manuals
-
-SOPs
-
-Maintenance documentation
-
-Quality procedures
-
-Safety documentation
-
-Engineering documents
-
-
-The AI uses these sources when generating answers rather than relying solely on its pretrained knowledge.
-
-📊 Manufacturing Analytics
-
-Turn operational data into:
-
-Production KPIs
-
-Downtime analysis
-
-Quality metrics
-
-Inventory insights
-
-Maintenance reports
-
-Factory performance dashboards
-
-
-
----
-
-Architecture
-
-┌──────────────────────┐
-                    │       Factory        │
-                    │                      │
-                    │ Production           │
-                    │ Machines             │
-                    │ Inventory            │
-                    │ Maintenance          │
-                    │ Quality              │
-                    │ Documents            │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Manufacturing DB     │
-                    │     PostgreSQL       │
-                    └──────────┬───────────┘
-                               │
-                 ┌─────────────┴─────────────┐
-                 │                           │
-                 ▼                           ▼
-        ┌─────────────────┐        ┌─────────────────┐
-        │ Structured Data │        │ Factory Docs    │
-        │                 │        │                 │
-        │ SQL             │        │ SOPs            │
-        │ Production      │        │ Manuals         │
-        │ Maintenance     │        │ Procedures      │
-        └────────┬────────┘        └────────┬────────┘
-                 │                          │
-                 │                          ▼
-                 │                   ┌──────────────┐
-                 │                   │   pgvector   │
-                 │                   │ Vector Store │
-                 │                   └──────┬───────┘
-                 │                          │
-                 └──────────┬───────────────┘
-                            ▼
-                    ┌──────────────────┐
-                    │ RAG Orchestrator │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                         ┌───────┐
-                         │  LLM  │
-                         └───┬───┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │ Grounded Answer  │
-                    │ + Evidence       │
-                    │ + Citations      │
-                    └──────────────────┘
-
-
----
-
-Core Design Principle
-
-The LLM is not the source of truth.
-
-PostgreSQL  → Source of truth
-pgvector    → Knowledge retrieval
-RAG         → Context orchestration
-LLM         → Natural-language interface
-Dashboard   → Operational interface
-
-This allows the platform to distinguish between actual factory data and AI-generated interpretation.
-
-
----
-
-Example
-
-User
-
-Why did Machine M102 have low production last week?
-
-System
-
-1. Identifies Machine M102.
-
-
-2. Determines the relevant date range.
-
-
-3. Queries production records.
-
-
-4. Checks downtime events.
-
-
-5. Checks maintenance history.
-
-
-6. Checks quality records.
-
-
-7. Searches relevant machine documentation.
-
-
-8. Combines the evidence.
-
-
-9. Generates an explanation.
-
-
-
-Response
-
-M102 production decreased by 12% last week.
-
-The primary contributors were:
-
-• 18.4 hours of machine downtime
-• Repeated temperature-related maintenance events
-• Increased product rejection
-
-Relevant evidence:
-• Production records
-• Downtime records
-• Maintenance history
-• M102 troubleshooting SOP
-
-
----
-
-Technology Stack
-
-Frontend
-
-Next.js
-
-React
-
-TypeScript
-
-Tailwind CSS
-
-shadcn/ui
-
-Recharts / ECharts
-
-
-Backend
-
-Python
-
-FastAPI
-
-Pydantic
-
-SQLAlchemy
-
-
-Database
-
-PostgreSQL
-
-pgvector
-
-
-AI
-
-LLM
-
-Embedding model
-
-RAG pipeline
-
-Semantic search
-
-Natural-language-to-SQL
-
-
-Infrastructure
-
-Docker
-
-GitHub Actions
-
-Vercel
-
-PostgreSQL hosting
-
-
-
----
-
-Project Structure
-
-manufacturing-intelligence-os/
-│
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   └── types/
-│
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   ├── services/
-│   │   ├── rag/
-│   │   ├── auth/
-│   │   └── database/
-│   │
-│   └── tests/
-│
-├── database/
-│   ├── migrations/
-│   ├── schema.sql
-│   └── seed.sql
-│
-├── rag/
-│   ├── ingestion/
-│   ├── chunking/
-│   ├── embeddings/
-│   ├── retrieval/
-│   ├── reranking/
-│   └── evaluation/
-│
-├── documents/
-│   ├── manuals/
-│   ├── sops/
-│   └── specifications/
-│
-├── infrastructure/
-│   ├── docker/
-│   └── deployment/
-│
-├── docs/
-│   ├── architecture.md
-│   ├── database.md
-│   └── rag.md
-│
-├── docker-compose.yml
-├── .env.example
-└── README.md
-
-
----
-
-Key Features
-
-[ ] Factory management
-
-[ ] Multi-user authentication
-
-[ ] Role-based access control
-
-[ ] Production management
-
-[ ] Machine management
-
-[ ] Maintenance management
-
-[ ] Inventory management
-
-[ ] Quality management
-
-[ ] Supplier management
-
-[ ] Manufacturing dashboards
-
-[ ] Document ingestion
-
-[ ] Semantic search
-
-[ ] RAG assistant
-
-[ ] Natural-language SQL
-
-[ ] Evidence-based responses
-
-[ ] Audit logging
-
-[ ] Multi-factory support
-
-
-
----
-
-RAG Pipeline
-
-Document
-   ↓
-Parse
-   ↓
-Clean
-   ↓
+This repository started as a student Manufacturing Database Management System and is now being evolved into the **Manufacturing Intelligence OS** MVP: an operations workspace for production, inventory, maintenance, and factory knowledge.
+
+## What is implemented now
+
+The current MVP is a **zero-backend demo** that runs directly from the repository and uses realistic seeded factory data.
+
+- **Operations overview:** production output, plan attainment, OEE, alerts, production trend, inventory risk.
+- **Production control:** line-level target vs actual, OEE, status, and a demo output logging action.
+- **Inventory intelligence:** stock, reorder points, coverage, and material-risk visibility.
+- **Maintenance command center:** maintenance exceptions with severity and resolution workflow.
+- **Factory knowledge:** indexed SOP/manual/quality/plan records plus a deterministic demo question-answering layer.
+- **Responsive UI:** desktop sidebar and mobile navigation.
+- **No fake AI claims:** the current answer layer is explicitly a demo. It is not yet an LLM/RAG system.
+
+## Product thesis
+
+Factory data is fragmented across production systems, spreadsheets, maintenance logs, inventory records, SOPs, manuals, and quality documents.
+
+The product eventually combines those sources so a manager can ask questions such as:
+
+> Which production line is underperforming today, and why?
+
+The target architecture uses structured SQL data for operational facts and RAG over factory documents for procedural knowledge. The LLM should interpret evidence, not become the source of truth.
+
+## MVP architecture
+
+```text
+Current demo
+Browser
+  └── HTML + CSS + JavaScript
+       └── Seeded factory dataset
+            ├── Production
+            ├── Inventory
+            ├── Maintenance
+            └── Documents
+
+Target production architecture
+
+Factory systems / CSV / ERP / MES / IoT
+                 │
+                 ▼
+          PostgreSQL + pgvector
+             │           │
+             │           └── SOPs / manuals / quality docs
+             ▼
+        Query + retrieval layer
+             │
+       ┌─────┴─────┐
+       ▼           ▼
+      SQL        RAG retrieval
+       │           │
+       └─────┬─────┘
+             ▼
+       Evidence context
+             ▼
+        LLM assistant
+             ▼
+    Answer + evidence + actions
+```
+
+## Repository structure
+
+The original HTML/CSS/JS pages remain in the repository as historical project material. The new MVP entry point is:
+
+```text
+index.html      # FactoryOS application shell
+styles.css      # MVP design system and responsive layout
+app.js          # seeded data, views, interactions, demo intelligence
+```
+
+Legacy pages such as `dashboard.html`, `orders.html`, `products.html`, and the original SQL project are retained for reference while the application is migrated.
+
+## Technology direction
+
+### Current
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- GitHub Pages-compatible static deployment
+
+### Next production iteration
+
+- Next.js / React / TypeScript
+- Supabase PostgreSQL
+- Supabase Auth + Row Level Security
+- pgvector
+- FastAPI or Next.js API routes
+- LLM provider for grounded assistant responses
+- Object storage for manuals and SOPs
+
+## Data model for the next iteration
+
+Core entities:
+
+```text
+Factory
+ ├── ProductionLine
+ │    └── ProductionRun
+ ├── Machine
+ │    └── MaintenanceEvent
+ ├── InventoryItem
+ ├── QualityRecord
+ ├── Supplier
+ ├── ProductionOrder
+ └── Document
+```
+
+The database should become the source of truth. The assistant should receive narrowly scoped, read-only access and every generated answer should expose the evidence used to reach it.
+
+## RAG roadmap
+
+```text
+Document upload
+      ↓
+Parse + clean
+      ↓
 Chunk
-   ↓
+      ↓
 Embed
-   ↓
-Store in pgvector
-   ↓
-Retrieve
-   ↓
-Rerank
-   ↓
-Build Context
-   ↓
-LLM
-   ↓
-Grounded Response
-
-For structured questions, the system uses SQL rather than vector search.
-
-"What was production yesterday?"
-             ↓
-        Query Router
-             ↓
-            SQL
-             ↓
-       PostgreSQL
-             ↓
-          Result
-
-For knowledge questions:
-
-"How do I maintain M102?"
-             ↓
-        Query Router
-             ↓
-      Semantic Search
-             ↓
-         pgvector
-             ↓
-       Relevant SOP
-             ↓
-            LLM
-
-For complex questions, both approaches are combined.
-
-
----
-
-Security
-
-Manufacturing data can be commercially sensitive.
-
-The platform is designed around:
-
-Role-based access control
-
-Least-privilege database access
-
-Read-only AI SQL execution
-
-SQL validation
-
-Query auditing
-
-Document access controls
-
-Tenant/factory isolation
-
-Input/output validation
-
-Prompt-injection defenses
-
-Encrypted connections
-
-
-AI-generated SQL should never receive unrestricted database privileges.
-
-
----
-
-Development Roadmap
-
-Phase 1 — Foundation
-
-PostgreSQL schema
-
-Authentication
-
-Factory management
-
-Production records
-
-Machine records
-
-Seed dataset
-
-
-Phase 2 — Operations
-
-Inventory
-
-Maintenance
-
-Quality
-
-Dashboards
-
-Role-based access
-
-
-Phase 3 — RAG
-
-Document ingestion
-
-Embeddings
-
+      ↓
 pgvector
+      ↓
+Retrieve + rerank
+      ↓
+Build evidence context
+      ↓
+LLM
+      ↓
+Answer + citations
+```
 
-Semantic retrieval
+Structured questions should use SQL:
 
-Citations
+```text
+"What was production yesterday?"
+          ↓
+      Query router
+          ↓
+      PostgreSQL
+          ↓
+        Result
+```
 
-RAG assistant
+Document questions should use retrieval:
 
+```text
+"How do I service Machine M102?"
+          ↓
+      Query router
+          ↓
+     Semantic search
+          ↓
+       Relevant SOP
+          ↓
+          LLM
+```
 
-Phase 4 — Manufacturing Intelligence
+Complex questions can combine both paths.
 
-Query routing
+## Security principles
 
-Natural-language SQL
+Manufacturing data is commercially sensitive. The production version should enforce:
 
-Hybrid retrieval
+- Row-level tenant/factory isolation
+- Role-based access control
+- Least-privilege database credentials
+- Read-only AI database access
+- SQL allowlisting/validation
+- Query and answer audit logs
+- Document-level permissions
+- Prompt-injection defenses
+- Input/output validation
+- Encrypted connections
 
-Root-cause analysis
+Never give an AI agent unrestricted write access to production manufacturing data.
 
-Operational recommendations
+## Roadmap
 
+### Phase 1 — MVP foundation
 
-Phase 5 — Production
+- [x] Factory operations dashboard
+- [x] Production monitoring
+- [x] Inventory monitoring
+- [x] Maintenance monitoring
+- [x] Factory knowledge UI
+- [x] Seeded demonstration dataset
+- [ ] PostgreSQL schema
+- [ ] Authentication
+- [ ] Persistent multi-user data
 
-ERP integrations
+### Phase 2 — Real operations
 
-MES integrations
+- [ ] Supabase/PostgreSQL backend
+- [ ] Production CRUD
+- [ ] Inventory transactions
+- [ ] Maintenance work orders
+- [ ] Quality records
+- [ ] RBAC
+- [ ] CSV import
 
-Multi-factory support
+### Phase 3 — Intelligence
 
-IoT/telemetry integrations
+- [ ] Document ingestion
+- [ ] Embeddings + pgvector
+- [ ] Semantic retrieval
+- [ ] SQL query router
+- [ ] Natural-language-to-SQL
+- [ ] Evidence citations
+- [ ] RAG assistant
 
-Advanced analytics
+### Phase 4 — Manufacturing intelligence
 
-Enterprise security
+- [ ] Root-cause analysis
+- [ ] Downtime analysis
+- [ ] Production forecasting
+- [ ] Inventory risk prediction
+- [ ] Predictive maintenance
+- [ ] Recommended actions
 
+### Phase 5 — Enterprise
 
+- [ ] ERP/MES integrations
+- [ ] IoT/telemetry ingestion
+- [ ] Multi-factory support
+- [ ] Advanced analytics
+- [ ] Enterprise security and audit controls
 
----
+## MVP success criterion
 
-MVP Goal
+The first version does **not** need to replace an ERP.
 
-The first version is not intended to replace a factory's entire ERP.
+It needs to prove one hypothesis:
 
-The MVP should prove one fundamental hypothesis:
+> A factory manager can connect operational data and factory documents, ask a meaningful question in plain language, and receive an accurate answer grounded in evidence.
 
-> Can we connect a factory's operational data and documents well enough that a manager can ask meaningful questions and receive accurate, evidence-backed answers?
-
-
-
-If that works, the platform can expand into deeper manufacturing workflows.
-
-
----
-
-Project Status
-
-🚧 Early-stage / MVP development
-
-The architecture and financial assumptions in this repository are currently product-planning assumptions, not claims of existing customer traction or production deployment.
-
-
----
-
-Vision
-
-Bangladesh has built a major manufacturing economy.
-
-The next opportunity is to make that manufacturing economy more intelligent.
-
-Manufacturing Intelligence OS aims to become the operational intelligence layer connecting:
-
-Factory data → Factory knowledge → Factory decisions
-
-
----
-
-License
-
-License to be determined.
-
-
----
-
-Contributing
-
-Contributions, ideas, architecture feedback, and manufacturing-domain expertise are welcome.
-
-Please open an issue before making major architectural changes.
-
-
----
-
-Three useful next steps
-
-1. “Create the actual GitHub repository structure and starter code for this README.”
-
-
-2. “Generate the PostgreSQL schema and ER diagram for the MVP.”
-
-
-3. “Build the RAG + natural-language-to-SQL backend architecture and API specification.”
-
-
+The current repository proves the **workflow and interface**. The next engineering milestone is replacing the demo data layer with a real PostgreSQL/Supabase backend and replacing the deterministic question matcher with a guarded SQL + RAG orchestration layer.

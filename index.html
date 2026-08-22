@@ -1,82 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manufacturing Database</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="navbar-styles.css"> 
-    <link rel="stylesheet" href="dashboard-styles.css"> <!-- New styles for improved UI -->
- 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js CDN -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>FactoryOS | Manufacturing Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Sidebar Section -->
-    <aside class="sidebar">
-        <div class="logo">mdbms</div>
-        <ul class="sidebar-links">
-            <li><a class="active" href="index.html">Home</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a  href="dashboard.html">Dashboard</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="orders.html">Orders</a></li> 
-        </ul>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark">F</span><div><strong>FactoryOS</strong><small>Manufacturing Intelligence</small></div></div>
+      <nav id="nav">
+        <button class="nav-item active" data-view="overview">⌂ <span>Overview</span></button>
+        <button class="nav-item" data-view="production">◫ <span>Production</span></button>
+        <button class="nav-item" data-view="inventory">▤ <span>Inventory</span></button>
+        <button class="nav-item" data-view="maintenance">⚙ <span>Maintenance</span></button>
+        <button class="nav-item" data-view="knowledge">◈ <span>Knowledge</span></button>
+      </nav>
+      <div class="sidebar-footer"><span class="status-dot"></span> Demo factory connected</div>
     </aside>
-        <div class="hamburger" id="hamburger">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-    </nav>
-    </header>
 
-    <!-- Main Content Section -->
-    <div class="container">
-        <h1>Manufacturing Database</h1>
-        <!-- Form to input manufacturing data -->
-        <form id="manufacturing-form">
-            <label for="product-name">Product Name:</label>
-            <input type="text" id="product-name" placeholder="Enter product name" required title="Enter the name of the product">
-        
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" placeholder="Enter quantity" min="1" required title="Enter the quantity to manufacture?">
-        
-            <label for="date">Manufacturing Date:</label>
-            <input type="date" id="date" required title="Select the manufacturing date">
-        
-            <label for="status">Status:</label>
-            <select id="status" required>
-                <option value="" disabled selected>Select status</option>
-                <option value="In Production">In Production</option>
-                <option value="Completed">Completed</option>
-                <option value="Pending">Pending</option>
-            </select>
-        
-            <button type="submit" aria-label="Submit manufacturing form">Add Record</button>
-        </form>
-        <div id="notification" class="hidden"></div>
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button>
+        <div><span class="eyebrow">Factory 01 / Dhaka</span><h1 id="pageTitle">Operations overview</h1></div>
+        <div class="top-actions"><span class="live"><i></i> Live data</span><button class="avatar">MN</button></div>
+      </header>
 
-
-        <h2>Manufacturing Records</h2>
-        <table id="manufacturing-table">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data will be populated here using JavaScript -->
-            </tbody>
-        </table>
-    </div>
-
-    <script src="navbar.js"></script> <!-- Navbar script for toggle functionality -->
-    <script src="app.js"></script>    <!-- JavaScript for the manufacturing form -->
+      <section class="content">
+        <div id="view-overview" class="view active"></div>
+        <div id="view-production" class="view"></div>
+        <div id="view-inventory" class="view"></div>
+        <div id="view-maintenance" class="view"></div>
+        <div id="view-knowledge" class="view"></div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
 </body>
 </html>
